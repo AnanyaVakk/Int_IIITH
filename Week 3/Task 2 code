@@ -1,0 +1,13 @@
+ffmpeg \
+-i input1.mp4 \
+-i final_video1.mp4 \
+-i finalseg_video.mp4 \
+-i new_audio.mp3 \
+-filter_complex "[0:v]trim=start=35:end=95,setpts=PTS-STARTPTS[v0]; \
+                 [1:v]setpts=PTS-STARTPTS[v1]; \
+                 [2:v]setpts=PTS-STARTPTS[v2]; \
+                 [v0][v1][v2]vstack=3[v]" \
+-map "[v]" \
+-map 3:a \
+-shortest \
+combined_output.mp4
